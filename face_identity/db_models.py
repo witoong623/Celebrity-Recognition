@@ -26,7 +26,7 @@ class Image(Base):
     split = mapped_column(Enum(DatasetSplit), nullable=False,
                           doc='Dataset split: train, val, test')
 
-    faces = relationship(back_populates="image")
+    faces = relationship('Face', back_populates="image")
 
 
 class Face(Base):

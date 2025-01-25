@@ -1,5 +1,14 @@
-from sqlalchemy import create_engine, String, LargeBinary, Float, Integer, ForeignKey
+import enum
+
+from sqlalchemy import create_engine, String, LargeBinary, Float, Integer, ForeignKey, Enum
 from sqlalchemy.orm import sessionmaker, DeclarativeBase, Mapped, mapped_column, relationship
+
+
+
+class DatasetSplit(enum.Enum):
+    TRAIN = 'train'
+    VAL = 'val'
+    TEST = 'test'
 
 
 class Base(DeclarativeBase):
@@ -14,6 +23,8 @@ class Image(Base):
                                doc='Relative path of image relative to dataset root directory')
     # TODO: need to make it indexed
     celeb_id = mapped_column(Integer, nullable=False)
+    split = mapped_column(Enum(DatasetSplit), nullable=False,
+                          doc='Dataset split: train, val, test')
 
     faces = relationship(back_populates="image")
 

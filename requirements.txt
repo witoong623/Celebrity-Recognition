@@ -1,5 +1,6 @@
 deepface==0.0.93
 faiss-cpu
+matplotlib
 numpy~=2.0.0
 pandas
 pillow~=11.1.0

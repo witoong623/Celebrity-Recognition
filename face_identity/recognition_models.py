@@ -6,7 +6,7 @@ from sqlalchemy.orm import joinedload
 from db_models import Image, Face, DatasetSplit, get_session_maker
 
 
-class FaceRecognition:
+class FaceRecognitionModel:
     embedding_dim = 128
 
     def __init__(self, db_url):

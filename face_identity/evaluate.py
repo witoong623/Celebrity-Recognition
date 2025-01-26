@@ -5,9 +5,9 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from db_models import get_session_maker, Image, DatasetSplit
-from recognition import FaceRecognition
 from config import get_config
+from db_models import get_session_maker, Image, DatasetSplit
+from recognition_models import FaceRecognitionModel
 
 
 parser = argparse.ArgumentParser(description='Detect faces in an image, then save to file and DB')
@@ -39,7 +39,7 @@ with session_maker() as session:
 
 test_embeddings = np.array(test_embeddings)
 
-face_recognizer = FaceRecognition(db_url=config.get_db_url())
+face_recognizer = FaceRecognitionModel(db_url=config.get_db_url())
 predicted_distances, predicted_labels = face_recognizer.recognize(test_embeddings)
 
 predicted_labels = [label if distance < config.L2_threshold else -1 for distance, label in zip(predicted_distances, predicted_labels)]

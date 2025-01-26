@@ -1,8 +1,8 @@
 import enum
 import json
 
-from sqlalchemy import create_engine, String, LargeBinary, Float, Integer, ForeignKey, Enum
-from sqlalchemy.orm import sessionmaker, DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import create_engine, String, LargeBinary, Float, Integer, ForeignKey, Enum, Boolean
+from sqlalchemy.orm import sessionmaker, DeclarativeBase, mapped_column, relationship
 
 
 
@@ -41,6 +41,7 @@ class Face(Base):
     facial_area = mapped_column(String, nullable=False,
                                 doc='JSON string of x, y, w, h, left_eye and right_eye')
     confidence = mapped_column(Float, nullable=False)
+    outlier = mapped_column(Boolean, default=False)
 
     image = relationship("Image", back_populates="faces")
 

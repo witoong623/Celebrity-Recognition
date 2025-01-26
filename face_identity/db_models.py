@@ -1,4 +1,5 @@
 import enum
+import json
 
 from sqlalchemy import create_engine, String, LargeBinary, Float, Integer, ForeignKey, Enum
 from sqlalchemy.orm import sessionmaker, DeclarativeBase, Mapped, mapped_column, relationship
@@ -42,6 +43,12 @@ class Face(Base):
     confidence = mapped_column(Float, nullable=False)
 
     image = relationship("Image", back_populates="faces")
+
+    @property
+    def face_area(self):
+        ''' Face area in pixels calculate by width * height '''
+        facial_area = json.loads(self.facial_area)
+        return facial_area['w'] * facial_area['h']
 
 
 engine = None

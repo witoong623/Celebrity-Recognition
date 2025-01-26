@@ -1,14 +1,22 @@
+import argparse
+
 import numpy as np
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from db_models import get_session_maker, Image, Face, DatasetSplit
+from db_models import get_session_maker, Image, DatasetSplit
 from recognition import FaceRecognition
-# import ace_tools as tools
+from config import get_config
 
 
-session_maker = get_session_maker('sqlite:///face_identity.db')
+parser = argparse.ArgumentParser(description='Detect faces in an image, then save to file and DB')
+parser.add_argument('--config', default='config.yaml', help='Config file path')
+args = parser.parse_args()
+
+config = get_config(args.config)
+
+session_maker = get_session_maker(config.get_db_url())
 
 # get test embedding
 test_embeddings = []
@@ -31,13 +39,10 @@ with session_maker() as session:
 
 test_embeddings = np.array(test_embeddings)
 
-face_recognizer = FaceRecognition('sqlite:///face_identity.db')
+face_recognizer = FaceRecognition(db_url=config.get_db_url())
 predicted_distances, predicted_labels = face_recognizer.recognize(test_embeddings)
 
-# Set threshold for Euclidean Distance
-threshold = 80
-
-predicted_labels = [label if distance < threshold else -1 for distance, label in zip(predicted_distances, predicted_labels)]
+predicted_labels = [label if distance < config.L2_threshold else -1 for distance, label in zip(predicted_distances, predicted_labels)]
 
 # Convert labels to numpy arrays
 predicted_labels = np.array(predicted_labels, dtype=np.int64)
@@ -56,7 +61,7 @@ f1 = f1_score(ground_truth_labels[ground_truth_labels != -1], predicted_labels[g
 
 # Display results
 metrics_results = {
-    "Threshold": threshold,
+    "Threshold": config.L2_threshold,
     "True Positives": TP,
     "False Positives": FP,
     "False Negatives": FN,
@@ -70,4 +75,3 @@ metrics_results = {
 import pandas as pd
 df_metrics = pd.DataFrame([metrics_results])
 print(df_metrics)
-# tools.display_dataframe_to_user(name="Face Recognition Evaluation Metrics", dataframe=df_metrics)

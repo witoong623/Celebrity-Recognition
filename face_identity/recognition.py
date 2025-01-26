@@ -31,7 +31,7 @@ class FaceRecognition:
         self._index.add(embedding_np)
         print(f'Finished building {len(self._embedding_index_mapper)} embeddings, index size: {self._index.ntotal}')
 
-    def recognize(self, query_embeddings: np.ndarray) -> tuple[int, float]:
+    def recognize(self, query_embeddings: np.ndarray) -> tuple[list[float], list[int]]:
         """
         Recognize faces by finding nearest neighbor embeddings
         Args:

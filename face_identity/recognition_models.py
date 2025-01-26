@@ -17,7 +17,11 @@ class FaceRecognitionModel:
         # build embeddings index for each image
         embedding_list = []
         with self._session_maker() as session:
-            stmt = select(Image).options(joinedload(Image.faces)).where(Image.split == DatasetSplit.TRAIN).order_by(Image.id)
+            stmt = (select(Image)
+                    .join(Face)
+                    .where(Image.split == DatasetSplit.TRAIN, Face.outlier == False)
+                    .order_by(Image.id)
+                    .options(joinedload(Image.faces)))
             for image in session.execute(stmt).unique().scalars().all():
                 embedding_list.extend([np.frombuffer(face.face_embedding, dtype=np.float32) for face in image.faces])
                 self._embedding_index_mapper.extend([image.celeb_id] * len(image.faces))

@@ -3,6 +3,8 @@ faiss-cpu
 numpy~=2.0.0
 pandas
 pillow~=11.1.0
+pydantic
+PyYAML
 seaborn
 tf-keras
 scikit-learn~=1.6.0

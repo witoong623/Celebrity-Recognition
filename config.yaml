@@ -1,0 +1,6 @@
+db_file: "face_identity.db"
+dataset_dir: "dataset"
+preprocessed_dataset_dir: "preprocessed-dataset"
+face_detector_backend: "yunet"
+embedding_model: "Facenet"
+L2_threshold: 90

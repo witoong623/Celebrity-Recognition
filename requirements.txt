@@ -1,5 +1,9 @@
 deepface==0.0.93
-tf-keras
+faiss-cpu
+numpy~=2.0.0
 pandas
+pillow~=11.1.0
 seaborn
+tf-keras
+scikit-learn~=1.6.0
 sqlalchemy~=2.0.0

@@ -14,7 +14,11 @@ args = parser.parse_args()
 config = get_config(args.config)
 recognizer = FaceRecognitionModel(config.get_db_url())
 
-query_embedding = get_face_embedding(args.image, config)
+query_embedding = get_face_embedding(args.image, config, is_face_image=False)
+
+if query_embedding is None:
+    print('No face detected in the image')
+    exit(1)
 
 distance, predict_celeb_id = recognizer.recognize(query_embedding)
 

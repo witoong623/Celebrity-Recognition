@@ -2,6 +2,7 @@ __pycache__/
 __MACOSX/
 dataset/
 preprocessed-dataset/
+figures/
 
 Assignment - Celebrity Recognition.pdf
 *.db

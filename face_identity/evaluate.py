@@ -25,6 +25,7 @@ with session_maker() as session:
     stmt = select(Image).options(joinedload(Image.faces)).where(Image.split == DatasetSplit.TEST).order_by(Image.id)
     for image in session.execute(stmt).unique().scalars().all():
         if len(image.faces) > 1:
+            # if there is more than one face in the image, we will use the largest face
             largest_face = max(image.faces, key=lambda face: face.face_area)
         elif len(image.faces) == 1:
             largest_face = image.faces[0]

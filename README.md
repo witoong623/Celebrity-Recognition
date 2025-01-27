@@ -84,3 +84,6 @@ If it can't detect face, it can't recognize. Example of running `face_identity/d
 ```
 python face_identity/demo.py --image dataset/test/1725014/1725014-0034.jpg
 ```
+
+## Notebook
+There are Jupyter notebook that I used for visualize something in `notebook` directory. If you want to run it, you may need to change the filepath in config.yaml to be absolute path.

@@ -68,3 +68,19 @@ python face_identity/filter_outlier_image.py
 ```
 
 After this, you will have face embedding ready to be used for building face embedding vector DB.
+
+## Evaluate celebrity recognition performance
+Run the following command to see recognition system performance with test with testing dataset.
+```
+python face_identity/evaluate.py
+```
+
+## Running demo script
+Use `face_identity/demo.py` script to run the system to recognize celebrity. You need to provide path the image file.
+
+Optionally, you can provide threshold using `--threshold` to help determine whether it can recognize or not. By default, the sytem will recognize to the most similar celebrity.
+
+If it can't detect face, it can't recognize. Example of running `face_identity/demo.py` script.
+```
+python face_identity/demo.py --image dataset/test/1725014/1725014-0034.jpg
+```

@@ -40,3 +40,21 @@ One can run all steps to demo face recognition using Docker container. Please fo
 ```bash
 ./scripts/start_container.sh
 ```
+After this point, one must run everything from inside container.
+
+## Configuration
+One can config parameters to run python scripts onwards. The configuration file is `config.yaml`. Every python script accepts `--config` which is path to YAML config file, it defaults to `config.yaml`, so if you want to use new config file, you must use `--config new-yaml-config.yaml` in every python script.
+
+You may change the following configs:
+- `db_file`: name of SQLite DB file.
+- `dataset_dir`: path to the root dataset directory. **You need to change this if you use difference name from the recommended structure above.**
+- `preprocessed_dataset_dir`: path to the cropped face images.
+
+**You shouldn't change other configs** because it ties to the available implementation of the Deepface that this repository use.
+
+## Building face embedding database
+In order to use face recognition, one must build the database of known celebrity face. The following are steps to preprocess and build known face embedding database
+1. Detect face in all images, then crop and then write to DB and crop face image and save to filesystem.
+```
+python face_identity/detect_face.py
+```

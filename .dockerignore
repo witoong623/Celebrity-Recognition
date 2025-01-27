@@ -1,0 +1,5 @@
+*.pdf
+
+__MACOSX/
+dataset/
+__pycache__/

@@ -58,3 +58,13 @@ In order to use face recognition, one must build the database of known celebrity
 ```
 python face_identity/detect_face.py
 ```
+2. Extract face embedding and save to DB.
+```
+python face_identity/build_face_embedding.py
+```
+3. Filter out outlier face images from DB.
+```
+python face_identity/filter_outlier_image.py
+```
+
+After this, you will have face embedding ready to be used for building face embedding vector DB.

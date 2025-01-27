@@ -9,7 +9,7 @@ from config import get_config
 from db_models import Face, get_session_maker
 
 
-parser = argparse.ArgumentParser(description='Detect faces in an image, then save to file and DB')
+parser = argparse.ArgumentParser(description='Read face metadata from DB and build face embeddings')
 parser.add_argument('--config', default='config.yaml', help='Config file path')
 args = parser.parse_args()
 

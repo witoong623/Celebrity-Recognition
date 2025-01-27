@@ -9,7 +9,7 @@ from db_models import DatasetSplit, Image as ImageModel, Face, get_session_maker
 from config import get_config
 
 
-parser = argparse.ArgumentParser(description='Detect faces in an image, then save to file and DB')
+parser = argparse.ArgumentParser(description='Detect faces in an image, then save to filesystem and DB')
 parser.add_argument('--config', default='config.yaml', help='Config file path')
 args = parser.parse_args()
 

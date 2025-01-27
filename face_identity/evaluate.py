@@ -10,7 +10,7 @@ from db_models import get_session_maker, Image, DatasetSplit
 from recognition_models import FaceRecognitionModel
 
 
-parser = argparse.ArgumentParser(description='Detect faces in an image, then save to file and DB')
+parser = argparse.ArgumentParser(description='Evaluate face recognition system using test dataset')
 parser.add_argument('--config', default='config.yaml', help='Config file path')
 args = parser.parse_args()
 
@@ -51,7 +51,7 @@ ground_truth_labels = np.array(ground_truth_labels, dtype=np.int64)
 # Compute TP, FP, FN based on actual & predicted labels
 TP = np.sum((predicted_labels != -1) & (predicted_labels == ground_truth_labels))  # Correctly identified celebrities
 FP = np.sum((predicted_labels != -1) & (predicted_labels != ground_truth_labels))  # Wrong celebrity assigned
-FN = np.sum((predicted_labels == -1) & (ground_truth_labels != -1))  # Missed celebrity ("Can't specify")
+FN = np.sum((predicted_labels == -1) & (ground_truth_labels != -1))  # Missed celebrity ('Can't specify')
 TN = np.sum((predicted_labels == -1) & (ground_truth_labels == -1))  # Correctly rejected non-celebrities
 
 # Compute Precision, Recall, and F1-score
@@ -61,14 +61,14 @@ f1 = f1_score(ground_truth_labels[ground_truth_labels != -1], predicted_labels[g
 
 # Display results
 metrics_results = {
-    "Threshold": config.L2_threshold,
-    "True Positives": TP,
-    "False Positives": FP,
-    "False Negatives": FN,
-    "True Negatives": TN,
-    "Precision": precision,
-    "Recall": recall,
-    "F1-score": f1,
+    'Threshold': config.L2_threshold,
+    'True Positives': TP,
+    'False Positives': FP,
+    'False Negatives': FN,
+    'True Negatives': TN,
+    'Precision': precision,
+    'Recall': recall,
+    'F1-score': f1,
 }
 
 # Show metrics in a DataFrame

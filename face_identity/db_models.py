@@ -27,14 +27,14 @@ class Image(Base):
     split = mapped_column(Enum(DatasetSplit), nullable=False,
                           doc='Dataset split: train, val, test')
 
-    faces = relationship('Face', back_populates="image")
+    faces = relationship('Face', back_populates='image')
 
 
 class Face(Base):
     __tablename__ = 'faces'
 
     id = mapped_column(Integer, primary_key=True)
-    image_id = mapped_column(ForeignKey("images.id"))
+    image_id = mapped_column(ForeignKey('images.id'))
     face_image_path = mapped_column(String, nullable=False,
                                     doc='Relative path of face image relative to dataset root directory')
     face_embedding = mapped_column(LargeBinary, nullable=True)
@@ -43,7 +43,7 @@ class Face(Base):
     confidence = mapped_column(Float, nullable=False)
     outlier = mapped_column(Boolean, default=False)
 
-    image = relationship("Image", back_populates="faces")
+    image = relationship('Image', back_populates='faces')
 
     @property
     def face_area(self):

@@ -14,12 +14,14 @@ args = parser.parse_args()
 config = get_config(args.config)
 recognizer = FaceRecognitionModel(config.get_db_url())
 
+print('Detecting and cropping face from the image')
 query_embedding = get_face_embedding(args.image, config, is_face_image=False)
 
 if query_embedding is None:
     print('No face detected in the image')
     exit(1)
 
+print('Recognizing the face by searching known faces in the database')
 distance, predict_celeb_id = recognizer.recognize(query_embedding)
 
 if args.threshold is not None and distance > args.threshold:

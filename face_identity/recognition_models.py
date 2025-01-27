@@ -36,7 +36,7 @@ class FaceRecognitionModel:
         print(f'Finished building {len(self._embedding_index_mapper)} embeddings, index size: {self._index.ntotal}')
 
     def recognize(self, query_embeddings: np.ndarray) -> tuple[list[float], list[int]]:
-        """
+        '''
         Recognize faces by finding nearest neighbor embeddings
         Args:
             query_embeddings: numpy array of shape (n, d) where n is number of queries
@@ -44,10 +44,10 @@ class FaceRecognitionModel:
         Returns:
             distances: distances to nearest neighbors
             indices: original indices of nearest neighbors
-        """
+        '''
         # Validate input shape
         if len(query_embeddings.shape) != 2:
-            raise ValueError("Query embeddings must be 2D array")
+            raise ValueError('Query embeddings must be 2D array')
 
         # Search top 1 nearest neighbor
         distances, indices = self._index.search(query_embeddings, k=1)

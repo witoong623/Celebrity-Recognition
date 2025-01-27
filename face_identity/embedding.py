@@ -32,4 +32,5 @@ def get_face_embedding(filepath: str, config: Config, is_face_image=True) -> np.
 
     # embedding is list of D float values where D is embedding size
     # originally, shape is (1, D), dtype is float32
+    # TODO: handle when there are multiple faces in the image
     return np.array(embedding_obj[0]['embedding'], dtype=np.float32).reshape(1, -1)
